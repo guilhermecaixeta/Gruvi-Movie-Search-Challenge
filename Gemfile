@@ -45,7 +45,7 @@ gem "rack-cors"
 gem "rswag-api"
 gem "rswag-ui"
 
-gem "connection_pool", "~> 2.4"
+gem "connection_pool", "~> 3.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
