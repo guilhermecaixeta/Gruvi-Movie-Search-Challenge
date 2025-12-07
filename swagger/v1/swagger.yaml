@@ -1,0 +1,67 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/movie/search":
+    get:
+      summary: Search for movies in range
+      parameters:
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: movies found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        title:
+                          type: string
+                        release_date:
+                          type: string
+                        description:
+                          type: string
+                      required:
+                      - id
+                      - title
+                      - release_date
+                      - description
+                  page:
+                    type: integer
+                  items_per_page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                required:
+                - results
+                - page
+                - items_per_page
+                - total_pages
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
