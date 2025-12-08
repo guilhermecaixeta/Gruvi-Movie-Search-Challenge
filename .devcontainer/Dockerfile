@@ -28,12 +28,15 @@ ENV APP_PATH=/app \
 # Install dependencies
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
+  gnupg lsb-release \
   unzip python-dev automake autoconf libtool build-essential gnupg2 \
   dirmngr tar git libssl-dev zlib1g-dev libyaml-dev curl libreadline-dev \
   cron imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev libvips \
   postgresql-client libpq-dev openssh-server openssh-client tzdata gifsicle \
   tmux vim ca-certificates && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://get.docker.com | sh   
 
 # Set working directory
 WORKDIR ${APP_PATH}

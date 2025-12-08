@@ -25,7 +25,8 @@ ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development" \
-    LD_PRELOAD="/usr/local/lib/libjemalloc.so"
+    LD_PRELOAD="/usr/local/lib/libjemalloc.so" \
+    PORT=3000
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -51,10 +52,9 @@ COPY . .
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
 
-
-
 # Final stage for app image
 FROM base
+ENV PORT=3000
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
@@ -69,5 +69,5 @@ COPY --chown=rails:rails --from=build /rails /rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
+EXPOSE $PORT
 CMD ["./bin/thrust", "./bin/rails", "server"]

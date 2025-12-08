@@ -10,11 +10,9 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [tailwindcss(), svelte()],
         server: {
-            port: Number(env.VITE_PORT) || 5173,
+            port: Number(env.VITE_PORT) || 80,
             strictPort: true,
-            host: env.VITE_HOST || 'localhost',
-            cors: true,
-            origin: `http://${env.VITE_HOST || 'localhost'}:${env.VITE_PORT || 5173}`,
+            host: env.VITE_HOST || 'localhost'
         },
     }
 });
