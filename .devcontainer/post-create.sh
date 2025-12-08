@@ -10,7 +10,7 @@ fi
 # If there's a Gemfile, then run `bundle install`
 if [ -f Gemfile ]; then
     echo "Installing gems"
-    gem install rails sorbet foreman debug rdbg kamal ruby-debug-ide debase gem rubocop-rails-omakase
+    gem install rails sorbet foreman debug rdbg kamal ruby-debug-ide debase gem rubocop-rails-omakase ruby-lsp-rails
 
     echo "running bundle"
     bundle install

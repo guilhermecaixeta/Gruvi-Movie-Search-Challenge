@@ -1,43 +1,12 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "[RDBG] Rails",
-      "type": "rdbg",
-      "request": "launch",
-      "useTerminal": false,
-      "command": "bin/rails",
-      "script": "s",
-      "args": [
-        "-b",
-        "0.0.0.0"
-      ],
-      "env": {
-        "RAILS_ENV": "development",
-        "RUBY_DEBUG_OPEN": true
-      },
-      "postDebugTask": "[post debugger] cleaning"
-    },
-    {
-      "name": "[RDBG] Foreman Rails",
-      "type": "rdbg",
-      "request": "attach",
-      "preLaunchTask": "[debugger] foreman",
-      "postDebugTask": "[post debugger] cleaning"
-    },
-    {
-      "type": "ruby_lsp",
-      "name": "[RUBY_LSP] RAILS",
-      "request": "launch",
-      "program": "bin/rails s -b 0.0.0.0",
-      "postDebugTask": "[post debugger] cleaning"
-    },
-    {
-      "type": "ruby_lsp",
-      "request": "attach",
-      "name": "[RUBY_LSP] Foreman Rails",
-      "preLaunchTask": "[debugger] foreman",
-      "postDebugTask": "[post debugger] cleaning"
-    }
+    // {
+    //   "name": "[RUBY_LSP] App Debugger",
+    //   "type": "ruby_lsp",
+    //   "request": "attach",
+    //   "preLaunchTask": "[debugger] foreman",
+    //   "postDebugTask": "[post debugger] cleaning"
+    // }
   ]
 }

@@ -18,4 +18,154 @@
             "frontend": true,
         },
     },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "[RUBY_LSP] App Debugger",
+                "type": "ruby_lsp",
+                "request": "attach",
+                "preLaunchTask": "[debugger] foreman",
+                "postDebugTask": "[post debugger] cleaning",
+            },
+            {
+                "name": "[SvelteKit] Dev Server",
+                "type": "node",
+                "request": "launch",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": [
+                    "run",
+                    "dev"
+                ],
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "cwd": "${workspaceFolder}/frontend",
+                "console": "integratedTerminal",
+                "sourceMaps": true
+            },
+            {
+                "name": "[SvelteKit] Firefox (client)",
+                "type": "firefox",
+                "request": "launch",
+                "url": "http://localhost:4200",
+                "webRoot": "${workspaceFolder:svelte}",
+            }
+        ],
+        "compounds": [
+            {
+                "name": "[SvelteKit] Full Stack",
+                "configurations": [
+                    "[SvelteKit] Dev Server",
+                    "[SvelteKit] Firefox (client)",
+                    "[RUBY_LSP] App Debugger"
+                ]
+            }
+        ],
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "[debugger] foreman",
+                "type": "shell",
+                "command": "bin/dev",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "isBackground": false,
+                "runOptions": {
+                    "runOn": "default"
+                },
+                "problemMatcher": {
+                    "owner": "application",
+                    "pattern": {
+                        "regexp": "^(DEBUGGER: wait for debugger connection\\.\\.\\.)$"
+                    },
+                    "background": {
+                        "activeOnStart": false,
+                        "beginsPattern": "^(ok: down:).*$",
+                        "endsPattern": "^(DEBUGGER: wait for debugger connection\\.\\.\\.)$"
+                    }
+                }
+            },
+            // Post Debug Task Start
+            {
+                "label": "[post debugger] app",
+                "type": "shell",
+                "command": "bin/build",
+                "dependsOn": [
+                    "[post debugger] clean pids"
+                ],
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                }
+            },
+            {
+                "label": "[post debugger] clean pids",
+                "type": "shell",
+                "command": "rm -rf tmp/pids/*",
+                "dependsOn": [
+                    "[post debugger] remove debbugers"
+                ],
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                }
+            },
+            {
+                "label": "[post debugger] remove debbugers",
+                "type": "shell",
+                "command": "rm -rf /tmp/user/0/rdbg-*",
+                "dependsOn": [
+                    "[post debugger] clean gems"
+                ],
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                }
+            },
+            {
+                "label": "[post debugger] clean gems",
+                "type": "shell",
+                "command": "bundle clean --force",
+                "group": "build",
+                "promptOnClose": false,
+                "dependsOn": [
+                    "[post debugger] stopping port apps"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                }
+            },
+            {
+                "label": "[post debugger] stopping port apps",
+                "type": "shell",
+                "command": "lsof -i:3000 && fuser -k 3000/tcp || echo \"stop to listening on application port\"",
+                "group": "build",
+                "promptOnClose": false,
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                }
+            },
+            {
+                "label": "[utils] remove autoattach",
+                "type": "shell",
+                "command": "rm -rf /app/.vscode/rdbg_autoattach.*"
+            },
+            {
+                "label": "[post debugger] cleaning",
+                "type": "shell",
+                "command": "echo \"Post Debug Task\"",
+                "dependsOn": [
+                    "[post debugger] clean pids",
+                    "[post debugger] remove debbugers",
+                    "[utils] remove autoattach"
+                ],
+                "group": "none"
+            },
+            // Post Debug Task End
+        ]
+    }
 }

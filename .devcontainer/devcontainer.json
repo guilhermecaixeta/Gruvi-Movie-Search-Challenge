@@ -38,7 +38,11 @@
         "donjayamanne.githistory",
         "codezombiech.gitignore",
         "redhat.vscode-xml",
-        "mikestead.dotenv"
+        "mikestead.dotenv",
+        "ms-edgedevtools.vscode-edge-devtools",
+        "firefox-devtools.vscode-firefox-debug",
+        "svelte.svelte-vscode",
+        "dbaeumer.vscode-eslint"
       ]
     }
   },

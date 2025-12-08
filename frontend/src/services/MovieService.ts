@@ -3,8 +3,8 @@ import type { MovieSearchResponse } from "../interfaces/MovieSearchResponse";
 export class MovieService {
     private urlBase: string;
 
-    constructor(urlBase: string) {
-        this.urlBase = urlBase;
+    constructor() {
+        this.urlBase = `${import.meta.env.VITE_API_URL}/v1/movie/search`;
     }
 
     public async getByRange(startDate: Date, endDate: Date, page: number): Promise<MovieSearchResponse> {

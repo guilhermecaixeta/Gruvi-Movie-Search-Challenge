@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Movie } from "../interfaces/Movie";
   import { MovieService } from "../services/MovieService";
-  import type { MovieSearchResponse } from "../interfaces/MovieSearchResponse";
 
   let startDate: string = "";
   let endDate: string = "";
@@ -40,9 +39,7 @@
   }
 
   async function getMoviesData() {
-    const service = new MovieService(
-      "http://localhost:3000/api/v1/movie/search",
-    );
+    const service = new MovieService();
     const moviesData = await service.getByRange(
       new Date(startDate),
       new Date(endDate),
