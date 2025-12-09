@@ -8,23 +8,23 @@ paths:
     get:
       summary: Search for movies in range
       parameters:
-      - name: start_date
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: end_date
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
       responses:
-        '200':
+        "200":
           description: movies found
           content:
             application/json:
@@ -45,10 +45,10 @@ paths:
                         description:
                           type: string
                       required:
-                      - id
-                      - title
-                      - release_date
-                      - description
+                        - id
+                        - title
+                        - release_date
+                        - description
                   page:
                     type: integer
                   items_per_page:
@@ -56,12 +56,12 @@ paths:
                   total_pages:
                     type: integer
                 required:
-                - results
-                - page
-                - items_per_page
-                - total_pages
+                  - results
+                  - page
+                  - items_per_page
+                  - total_pages
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
+  - url: http://{defaultHost}
+    variables:
+      defaultHost:
+        default: https://gruvi-movie-search.jumpingcrab.com
