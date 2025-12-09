@@ -23,10 +23,10 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://{defaultHost}',
+          url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
-              default:  'https://gruvi-movie-search.jumpingcrab.com'
+              default:  'gruvi-movie-search.jumpingcrab.com'
             }
           }
         }
