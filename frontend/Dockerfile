@@ -25,14 +25,13 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 # Copy built app and prod node_modules
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/build ./build
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
 # Production settings
 ENV NODE_ENV=production
-ENV VITE_PORT=80
-ENV VITE_HOST=0.0.0.0
-EXPOSE $VITE_PORT
+ENV PORT=3000
+EXPOSE $PORT
 
-CMD ["npm", "run", "preview"]
+CMD ["node", "build"]
