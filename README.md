@@ -14,7 +14,7 @@ text
 
 ## Why Custom Solid Cache > Redis 💾
 
-The custom `lib/cache/` implementation uses **SQLite on NVMe disk** instead of Redis RAM:
+The custom `lib/cache/` implementation uses **PosgtreSQLon NVMe disk** instead of Redis RAM:
 
 | Feature | Redis (Memory) | Our Solid Cache (Disk) |
 |---------|----------------|-----------------------|
@@ -41,13 +41,13 @@ Use **Redis** for:
 ### ✅ **Pros**
 - **Persistent**: Cache survives container restarts (Docker volume)
 - **Cost-free**: No Redis cluster/HA needed  
-- **Granular control**: Custom SQLite table defragmentation + queries
+- **Granular control**: Custom PosgtreSQLtable defragmentation + queries
 - **Massive storage**: Cache **everything** without evictions
 
 ### ❌ **Cons**
 - **Slower cold hits**: 1-2ms vs Redis 0.1ms
 - **No pub/sub**: Use Redis for real-time features
-- **Vertical scaling**: SQLite limits → shard by query type for 10k+ RPS
+- **Vertical scaling**: PosgtreSQLlimits → shard by query type for 10k+ RPS
 
 ## Quick Start 🐳
 
@@ -111,7 +111,7 @@ text
 
 ## Future Improvements 🔮
 - **Multi-tenant sharding**: Separate cache per user/region
-- **Read replicas**: Dedicated SQLite for cache reads
+- **Read replicas**: Dedicated PosgtreSQLfor cache reads
 - **Auto-eviction**: LRU + query popularity scoring
 - **Redis hybrid**: Sessions/counters → Redis, data → Solid Cache
 
