@@ -10,7 +10,7 @@ lib/cache/ (persistent)
 
 text
 
-**Key Innovation**: `lib/cache/` implements `ActiveSupport::Cache::Store` using **SQLite on disk** instead of Redis.
+**Key Innovation**: `lib/cache/` implements `ActiveSupport::Cache::Store` using **Postgres for long persistence** instead of Redis.
 
 ## Why Custom Solid Cache > Redis 💾
 
