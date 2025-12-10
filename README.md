@@ -123,8 +123,10 @@ text
 - Cache: lib/cache/ (PostgreSQL-backed ActiveSupport::Cache::Store)
 
 
-## Deployment Issues
+## IA Support
 
-Since I'm trying to deploy the application on my own server I had some issues that impossibilitate, I'm used to use the duckdns subdomains for a few apps and there a kind of exhaustation of it that impossibilitates me to deploy the application on my own server.
+- Code snippets svelte
+- Fixing types and text revision
+- Support to improve the documentation
 
-Issues with kamal, since I use kamal to deploy all my apps, they were proxied by kamal proxy that is having some issues with my rails app not recognizing the health path. It still under investigation. And I can remove the proxy because my other apps will be affected. The deployment server was not changed because I already have server to be used and since those issues was not expected (my other apps works fine), I have keep it, if there is any further question let me know.
+
