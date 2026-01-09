@@ -9,7 +9,7 @@
 
 # Ignore all environment files.
 **/.env*
-
+.env*
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -36,3 +36,4 @@
 /config/credentials/*.key
 
 deploy.sh
+frontend/.env.production
