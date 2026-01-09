@@ -24,27 +24,4 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_07_205328) do
     t.index ["expires_at"], name: "index_movie_cache_entries_on_expires_at", where: "(expires_at IS NOT NULL)"
     t.index ["key"], name: "index_movie_cache_entries_on_key", unique: true
   end
-
-  create_table "movie_data_caches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "description"
-    t.date "release_date"
-    t.string "title"
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "movie_search_indexers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.date "end_date_indexed"
-    t.date "start_date_indexed"
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "movies", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "description"
-    t.date "release_date"
-    t.string "title"
-    t.datetime "updated_at", null: false
-  end
 end

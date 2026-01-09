@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e pipefail
+
+set -o allexport
+source .env
+set +o allexport

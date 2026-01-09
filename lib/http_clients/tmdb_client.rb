@@ -44,7 +44,6 @@ class HttpClients::TmdbClient
       conn.headers["Content-Type"] = "application/json"
       conn.headers["Accept"] = "application/json"
       conn.request :json
-      # conn.request :log, Rails.logger, bodies: true, headers: true
       conn.response :json
       conn.response :logger, Rails.logger, bodies: true, headers: true
       conn.adapter Faraday.default_adapter

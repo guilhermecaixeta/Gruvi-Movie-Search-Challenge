@@ -1,15 +1,14 @@
 # Name of your application. Used to uniquely configure containers.
-service: gruvi_challenge_app_backend
+service: gruvi_challenge_app_frontend
 
-image: DOCKER_USERNAME/gruvi_challenge_app_backend
+image: DOCKER_USERNAME/gruvi_challenge_app_frontend
 
 servers:
   web:
     hosts:
       - SSH_PROFILE
-    proxy: false
     labels:
-      app.type: api.rest
+      app.type: gruvi-challenge
 
 # Credentials for your image host.
 registry:
@@ -17,9 +16,6 @@ registry:
   password:
     - KAMAL_REGISTRY_PASSWORD
 
-env:
-  secret:
-    - RAILS_MASTER_KEY
 ssh:
   user: SSH_USER
   port: SSH_PORT
@@ -28,21 +24,24 @@ ssh:
 builder:
   arch: amd64
   remote: SSH_PROFILE
+  context: .
   cache:
     options: --no-cache
   args:
     GIT_REV: <%= `git rev-parse --short HEAD` %>
     BUILD_DATE: <%= `date -u +"%Y-%m-%dT%H:%M:%S %Z"` %>
 
-# proxy:
-#   ssl: true
-#   forward_headers: true
-#   hosts:
-#     - gruvi-movie-search-backend.duckdns.org
-#   app_port: 3000
-#   healthcheck:
-#     interval: 60
-#     path: /up
-#     timeout: 60
+env:
+  BASE_BACKEND_API_URL: http://gruvi_challenge_app_backend:3000/api
+proxy:
+  ssl: true
+  forward_headers: true
+  hosts:
+    - gruvi-movie-search.duckdns.com
+  app_port: 3000
+  healthcheck:
+    interval: 60
+    path: /api/health
+    timeout: 60
 
 primary_role: web

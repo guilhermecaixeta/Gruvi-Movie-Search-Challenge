@@ -18,13 +18,13 @@ class Services::MovieService
       map_response movies
     end
 
-    rescue StandardError => e
-      Rails.logger.error { e.message }
-      raise Errors::DomainErrors::InternalError "Check logs for more information."
+  rescue StandardError => e
+    Rails.logger.error { e.message }
+    raise Errors::DomainErrors::InternalError "Check logs for more information."
   end
 
   def map_response(response)
-    # TMDB does not allow a page greater than 500
+    # TMDB does not allow page greater than 500
     total_pages = response["total_pages"] > 500 ? 500 : response["total_pages"]
     movies = response["results"].map do |movie|
         {
