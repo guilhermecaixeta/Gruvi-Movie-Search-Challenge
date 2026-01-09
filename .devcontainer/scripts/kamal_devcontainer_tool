@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+cd /app
+
+set -e
+
+for arg in "$@"; do 
+case $arg in
+ "-d")
+   DEPLOY="true"
+   ;;
+ "-s") 
+    SETUP="true"
+    ;;
+ "-rl")
+    REGISTRY_LOGIN="true"
+    ;;
+ *) 
+    echo "There is no option for '${arg}'" && exit 1
+ ;;
+ esac
+done
+
+sed -i -e 's/"deploy-timeout": seconds_duration(config.deploy_timeout)/"deploy-timeout": seconds_duration('${KAMAL_DEPLOY_TIMEOUT:-120}')/g' "${GEMS_PATH}/gems/kamal-${KAMAL_VERSION}/lib/kamal/configuration/proxy.rb"
+sed -i -e "s/SSH_PROFILE/${SSH_PROFILE}/g" config/deploy.yml
+sed -i -e "s/SSH_PORT/${SSH_PORT}/g" config/deploy.yml
+sed -i -e "s/SSH_HOST/${SSH_HOST}/g" config/deploy.yml
+sed -i -e "s/SSH_USER/${SSH_USER}/g" config/deploy.yml
+sed -i -e "s/DOCKER_USERNAME/${DOCKER_USERNAME}/g" config/deploy.yml
+
+echo "{}" > "$HOME/.docker/config.json"
+
+if [ "$DEPLOY" == "true" ]; then
+    kamal deploy -d production -p
+fi
+
+if [ "$SETUP" == "true" ]; then
+    kamal setup -d production -p
+fi
+
+if [ "$REGISTRY_LOGIN" == "true" ]; then
+    kamal registry login
+fi

@@ -46,11 +46,12 @@
       ]
     }
   },
-  "remoteUser": "root",
-  "containerUser": "root",
+  "remoteUser": "vscode",
+  "containerUser": "vscode",
   "forwardPorts": [
     3000,
     5432
   ],
-  "postCreateCommand": "chmod +x /app/.devcontainer/post-create.sh && /app/.devcontainer/post-create.sh"
+  "postCreateCommand": "chmod +x /app/.devcontainer/scripts/post_create && /app/.devcontainer/scripts/post_create",
+  "postStartCommand": "chmod ug+x /app/.devcontainer/scripts/kamal_devcontainer_tool && echo \"alias kdc=\"/app/.devcontainer/scripts/kamal_devcontainer_tool\"\" >> $HOME/.zshrc"
 }

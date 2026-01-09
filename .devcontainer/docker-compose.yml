@@ -9,14 +9,15 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        - PORT=${APP_MAIN_PORT}
+        - PORT=${PORT}
         - RUBY_VERSION=${RUBY_VERSION}
         - NODE_JS_VERSION=${NODE_JS_VERSION}
         - BUNDLE_VERSION=${BUNDLE_VERSION}
     ports:
-      - ${APP_MAIN_PORT}:${APP_MAIN_PORT}
-    environment:
-      - POSTGRES_HOST=postgres
+      - ${PORT}:${PORT}
+    env_file:
+      - path: ./.env
+        required: true
     volumes:
       - ..:/app:cached
       - $HOME/.ssh/:/home/vscode/.ssh/
@@ -31,7 +32,7 @@ services:
   postgres:
     image: postgres:12-alpine
     env_file:
-      - path: ./postgres_devcontainer.env
+      - path: ./.env.postgres
         required: true
     volumes:
       - postgres_data:/var/lib/postgresql/data

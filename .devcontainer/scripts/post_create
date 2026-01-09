@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Install the version of Bundler specified in Gemfile.lock
 if [ -f Gemfile.lock ]; then
@@ -15,3 +15,9 @@ if [ -f Gemfile ]; then
     echo "running bundle"
     bundle install
 fi
+
+echo "export GEMS_PATH=$(gem environment gemdir)" >> $HOME/.zshrc
+echo "export GEMS_PATH=$(gem environment gemdir)" >> $HOME/.bashrc
+
+echo "export KAMAL_VERSION=$(kamal version)" >> $HOME/.zshrc
+echo "export KAMAL_VERSION=$(kamal version)" >> $HOME/.bashrc
